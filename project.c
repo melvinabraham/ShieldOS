@@ -140,8 +140,11 @@ void makeuser()
 {
 	
 	FILE *fp; char systemvar[20];
+<<<<<<< HEAD
     char dname[20],dpass[20];
     int dadmin;
+=======
+>>>>>>> 9a8624903f65472ab846ed157fccaa6078eafdfe
 	char *confirm;
 	int i=0,choice;
 	system("clear");
@@ -150,10 +153,17 @@ void makeuser()
 		printf(GAP);
 		printf("Sorry. You could not be authenticated!");	
 	}
+<<<<<<< HEAD
    
    else
 	{
 		goback:header();
+=======
+	
+	else
+	{
+		header();
+>>>>>>> 9a8624903f65472ab846ed157fccaa6078eafdfe
 		printf(GAP);
 		printf("\t\t\t\t     |||||||||||||||||||||||||||||");
 		printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t||");
@@ -184,6 +194,7 @@ void makeuser()
 				system(systemvar);
 				sprintf(systemvar,"%s/secure.dat",newuser.username);
 				fp=fopen(systemvar,"w+");
+<<<<<<< HEAD
                 fclose(fp);
 				//if(fopen(systemvar,"w+")==NULL)
             }
@@ -230,6 +241,12 @@ void makeuser()
                
                 
                      
+=======
+				//if(fopen(systemvar,"w+")==NULL)
+
+
+
+>>>>>>> 9a8624903f65472ab846ed157fccaa6078eafdfe
 
 		}
 
@@ -237,7 +254,11 @@ void makeuser()
 	}	
 }
 	
+<<<<<<< HEAD
 	
+=======
+}	
+>>>>>>> 9a8624903f65472ab846ed157fccaa6078eafdfe
 
 void main()
 {
