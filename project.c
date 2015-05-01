@@ -13,7 +13,7 @@ struct users
 	char password[20];
 	int isadmin;
 
-}adminpass;
+}adminpass,newuser;
 
 
 void header()
@@ -139,9 +139,9 @@ int admin(void)
 void makeuser()
 {
 	
-	FILE *fp;
+	FILE *fp; char systemvar[20];
 	char *confirm;
-	int i=0;
+	int i=0,choice;
 	system("clear");
 	if(!admin())
 	{
@@ -161,10 +161,39 @@ void makeuser()
 		printf("\n\t\t\t\t\t\t\t     ||   4. Delete A User\t||");
 		printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t||");
 		printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||");
+		printf("\n\n\n\n\t\t\t\t\t\t Enter your choice : ");
+		scanf("%d",&choice);
+
+		switch(choice)
+		{
+			case 1:
+			{
+				system("clear");header();
+				printf(GAP);
+				printf("\t\t\t\tEnter the Username : ");
+				scanf("%s",newuser.username);
+				printf("\n\n\t\t\t\t Enter Password : ");
+				scanf("%s",newuser.password);
+				printf("\n\n\t\t\t\t\tDo you want to provide Administration rights to this user? (1/0) : ");
+				scanf("%d",&newuser.isadmin);
+
+				
+				sprintf(systemvar,"mkdir %s",newuser.username);
+				system(systemvar);
+				sprintf(systemvar,"%s/secure.dat",newuser.username);
+				fp=fopen(systemvar,"w+");
+				//if(fopen(systemvar,"w+")==NULL)
+
+
+
+
+		}
+
 
 	}	
 }
-		
+	
+}	
 
 void main()
 {
