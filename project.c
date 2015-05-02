@@ -173,7 +173,10 @@ void showip(char loggeduser[])
 	printf("\n");
 	sprintf(systemvar,"ifconfig > %s/IP.txt",loggeduser);
 	system(systemvar);
-	fp=fopen("IP.txt","r");
+	sprintf(systemvar,"%s/IP.txt",loggeduser);
+
+	fp=fopen(systemvar,"r");
+
 	fseek(fp, 0L, SEEK_END);
 	size = ftell(fp);
 	fseek(fp, 0L, SEEK_SET);
@@ -383,7 +386,7 @@ int shieldchat(char loggeduser[])
 			printf(GAP"\n\n");
 			printf(TAB);
 			printf("\t\t    Establishing connectivity to the host %s with key %d ...",ip,port);
-			sprintf(systemvar,"nc %s %d",ip,port,);
+			sprintf(systemvar,"nc %s %d",ip,port);
 			printf("\n\n\n\t\t\t\tYou are now looking for the host with the secret key..");
 			printf("Y\n\n\n\t\t\t\tConnected!. Press Ctrl+C to exit anytime " );
 			system(systemvar);
@@ -392,7 +395,7 @@ int shieldchat(char loggeduser[])
 		case 3:
 
 			showip(loggeduser);
-		goto goback;
+		//goto goback;
 
 		case 4 :
 
