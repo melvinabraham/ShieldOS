@@ -25,15 +25,15 @@ This is a simple C application which tries to emulate a CLI operating system.
 
 *Documentation by,*
 
-**Rajiv Krishnan**  [GitHub Link](https://github.com)
+**Rajiv Krishnan**  	[[GitHub Link]]](https://github.com)
 
 *A (simple) project by,*
 
-**Sachin S Kamath** [GitHub Link](https://github.com/sachinkamath)
+**Sachin S Kamath** 	[[GitHub Link]](https://github.com/sachinkamath)
 
-**Melvin Abraham**  [GitHub Link](https://github.com/melvinabraham)
+**Melvin Abraham**	[[GitHub Link]](https://github.com/melvinabraham)
 
-**H Sabhariesh**    [GitHub Link](https://github.com/shariharasudan)
+**H Sabhariesh**    	[[GitHub Link]](https://github.com/shariharasudan)
 
 **Nimal N**
 
