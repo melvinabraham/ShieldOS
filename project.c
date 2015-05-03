@@ -310,7 +310,7 @@ int webutilities(char loggeduser[])
 					
 					header();
 					printf(GAP);
-					printf("Enter the search term : ",url );
+					printf("Enter the search term : ");
 					scanf("%s",url);
 					sprintf(systemvar,"firefox https://duckduckgo.com/?q=%s",url);
 					system(systemvar);
@@ -383,7 +383,7 @@ int shieldchat(char loggeduser[])
 			printf(GAP"\n\n");
 			printf(TAB);
 			printf("\t\t    Establishing connectivity to the host %s with key %d ...",ip,port);
-			sprintf(systemvar,"nc %s %d",port);
+			sprintf(systemvar,"nc %s %d",ip,port,);
 			printf("\n\n\n\t\t\t\tYou are now looking for the host with the secret key..");
 			printf("Y\n\n\n\t\t\t\tConnected!. Press Ctrl+C to exit anytime " );
 			system(systemvar);
