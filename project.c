@@ -199,7 +199,7 @@ int webutilities(char loggeduser[])
 	int choice;
 	int webchoice,webchoice1;	
 	FILE *fp; char systemvar[20];
-	char *fcontent;
+	char *fcontent,url[100];
     long size;
     char websites[10][20]={"www.google.co.in","www.facebook.com","www.wikipedia.org","www.yahoo.co.in","www.flipkart.com","www.youtube.com","www.redbus.in","www.toi.in","www.reddit.com","www.amazon.in"};
 
@@ -209,7 +209,9 @@ int webutilities(char loggeduser[])
 				printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
 				printf("\n\t\t\t\t\t\t\t     ||   1. Speed links\t  ||");
 				printf("\n\t\t\t\t\t\t\t     ||   2. View IP Details\t  ||");
-				printf("\n\t\t\t\t\t\t\t     ||   3. Go Back\t\t  ||");
+				printf("\n\t\t\t\t\t\t\t     ||   3. Open URL \t\t  ||");
+				printf("\n\t\t\t\t\t\t\t     ||   4. DuckDuckGo Search \t  ||");
+				printf("\n\t\t\t\t\t\t\t     ||   5. Go Back\t\t  ||");
 				printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
 				printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||||");
 				printf("\n\n\n\n\t\t\t\t\t\t Enter your choice : ");
@@ -290,12 +292,32 @@ int webutilities(char loggeduser[])
 					break;
 
 	  				case 2:
-					{
+			
 						showip(loggeduser);
 						goto gotoweb;
-					}
-				case 3: 
-					return 1;
+					
+				case 3:
+					
+					header();
+					printf(GAP);
+					printf("\t\t\t\t\tEnter the Web URL : ");
+					scanf("%s",url);
+					sprintf(systemvar,"firefox %s ",url);
+					system(systemvar);
+					goto gotoweb;
+
+				case 4:
+					
+					header();
+					printf(GAP);
+					printf("Enter the search term : ",url );
+					scanf("%s",url);
+					sprintf(systemvar,"firefox https://duckduckgo.com/?q=%s",url);
+					system(systemvar);
+					goto gotoweb;
+
+				case 5: 
+					return ;
 				
 				default: 
 					goto gotoweb;
