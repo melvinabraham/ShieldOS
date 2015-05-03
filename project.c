@@ -50,6 +50,8 @@ int admin(void)
 	int attempts=3;
 	if(fopen("admin/secure.dat", "r")==NULL)
 	{
+		sprintf(systemvar,"mkdir admin");
+		system(systemvar);
 		system("clear");
 		printf(GAP);
 		printf("\b\b\b\b\b\b\bAdmin not present. Please create a new password");
@@ -68,6 +70,7 @@ int admin(void)
 			printf(GAP);
 			printf("Passwords Matching.");
 			printf(GAP);
+
 			fwrite(&adminpass,sizeof(adminpass),1,fw);
 			rewind(fw);
 			fcloseall();
@@ -141,7 +144,7 @@ void makeuser()
 	
 	FILE *fp; char systemvar[20];
 
-    char dname[20],dpass[20];
+    char dname[20],dpass[20],filename[20],deleteuser[20];
     int dadmin;
 
 	char *confirm;
@@ -180,7 +183,16 @@ void makeuser()
 				printf(GAP);
 				printf("\t\t\t\tEnter the Username : ");
 				scanf("%s",newuser.username);
-				printf("\n\n\t\t\t\t Enter Password : ");
+				sprintf(systemvar, "%s,secure.dat",newuser.username);
+				if(fopen(systemvar,"r")!=NULL)
+				{
+					//add voice later
+					system("clear");header();
+					printf(GAP);
+					printf("\t\t\t\tThe username already exists. Try again.");
+					goto goback;
+				}
+				printf("\n\n\t\t\t\t\t\t\t Enter Password : ");
 				scanf("%s",newuser.password);
 				printf("\n\n\t\t\t\t\tDo you want to provide Administration rights to this user? (1/0) : ");
 				scanf("%d",&newuser.isadmin);
@@ -190,9 +202,22 @@ void makeuser()
 				system(systemvar);
 				sprintf(systemvar,"%s/secure.dat",newuser.username);
 				fp=fopen(systemvar,"w+");
-                fclose(fp);
+                fwrite(&newuser, sizeof(newuser), 1, fp);
+                fcloseall();
+                goto goback;
 				//if(fopen(systemvar,"w+")==NULL)
             }
+
+           case 2:
+           {
+           		system("clear");
+                header();
+                printf(GAP);
+                printf("\t\t\t\t\t");
+                system("ls -d */");
+                system("sleep 5");
+                goto goback;
+           }
 
            case 3:
             {
@@ -200,8 +225,18 @@ void makeuser()
                 header();
                 printf(GAP);
                 printf("\t\t\t\tEnter username:   ");
-                scanf("%s",dname);
-                sprintf(systemvar,"%s/secure.dat",dname);
+                scanf("%s",filename);
+                if(!strcmp(filename,"admin"))
+                {
+                	//Add voice later
+                	system("clear");
+                	header();
+                	printf(GAP);
+                	printf("\t\t\t\tSorry! This user cannot be modified!");
+                	goto goback;
+
+                }
+                sprintf(systemvar,"%s/secure.dat",filename);
                 if (fopen(systemvar,"r")==NULL)
                 {
                     system("clear");
@@ -212,30 +247,85 @@ void makeuser()
                 }
                 fp=fopen(systemvar,"r");
                 fread(&newuser,sizeof(newuser),1,fp);
-                fclose(fp);
-                printf("\t\t\t\tEnter new username or enter 'same' to retain the original");
+                printf("\t\t\t\tEnter new username or enter 'same' to retain the original : ");
                 scanf("%s",dname);
   
                 if(strcmp(dname,"same"))
                  strcpy(newuser.username,dname);
-                printf("\n\t\t\t\tEnter new password or enter 'same' to retain the original");
+                printf("\n\t\t\t\tEnter new password or enter 'same' to retain the original : ");
                 scanf("%s",dpass);
                 if(strcmp(dpass,"same"))
                  strcpy(newuser.password,dpass);
 
-                printf("\n\t\t\t\tEnter new administrative right or '9' to retain the original");
+                printf("\n\t\t\t\tEnter new administrative right or '9' to retain the original : ");
                 scanf("%d",&dadmin);
                 if(dadmin!=9)
-                 newuser.isadmin=dadmin;        
-                 fp=fopen(systemvar,"w+");
+                 	newuser.isadmin=dadmin;
+
+                sprintf(systemvar,"rm -rf %s",filename);
+                system(systemvar);
+                sprintf(systemvar,"mkdir %s",newuser.username);
+				system(systemvar);
+				sprintf(systemvar,"%s/secure.dat",newuser.username);      
+                fp=fopen(systemvar,"w+");
                 fwrite(&newuser,sizeof(newuser),1,fp);
+                fflush(fp);
                 fclose(fp); 
+                goto goback;
           
                 
                 }
+
+            case 4 :
+            {
+            	 system("clear");
+                header();
+                printf(GAP);
+                printf("\t\t\t\tEnter username:   ");
+                scanf("%s",filename);
+                
+                if(!strcmp(filename,"admin"))
+                {
+                	//Add voice later
+                	system("clear");
+                	header();
+                	printf(GAP);
+                	printf("\t\t\t\tSorry! This user cannot be deleted!");
+                	system("sleep 3");
+                	goto goback;
+
+                }
+                else
+                {
+                sprintf(systemvar,"%s/secure.dat",filename);
+                if (fopen(systemvar,"r")==NULL)
+                {
+                    system("clear");
+                    header();
+                    printf(GAP);
+                    printf("\n\n\nNo such user exists");
+                    goto goback;
+                }
+
+                sprintf(systemvar,"rm -rf %s",filename);
+                system(systemvar);
+                system("clear");
+                header();
+                printf(GAP);
+                printf("\t\t\t\tUser Successfully Deleted!");
+                //Add voice later
+                system("sleep 3");
+                goto goback;
+                break;
             }
-        }       
-    }            
+
+                
+            }
+        default:
+        goto goback;
+        }
+    }
+}               
                      
 
 
