@@ -147,7 +147,6 @@ struct users
 
 }adminpass,newuser,authuser;
 
-
 void header()
 {
 	system("clear");
@@ -162,12 +161,166 @@ void header()
 		//printf("Please wait for ")
                                                       
 }
+
+void showip(char loggeduser[])
+{
+	FILE *fp; char systemvar[20];
+	char *fcontent;
+    long size;
+	header();
+	printf(GAP);
+	printf("\n");
+	sprintf(systemvar,"ifconfig > %s/IP.txt",loggeduser);
+	system(systemvar);
+	fp=fopen("IP.txt","r");
+	fseek(fp, 0L, SEEK_END);
+	size = ftell(fp);
+	fseek(fp, 0L, SEEK_SET);
+	fcontent=malloc(size);
+	fread(fcontent,1,size,fp);
+	printf("%s \n",fcontent);
+	system("sleep 5");
+}
+
+
 //This function welcomes the user.
 void welcome(char username[20])
 {
 	char note[100];
 	sprintf(note,"espeak \"Welcome to SHIELD OS, , %s. Please Select an Option.\"",username);
 	system(note);
+}
+
+int webutilities(char loggeduser[])
+{
+	gotoweb:
+	header();
+	int choice;
+	int webchoice,webchoice1;	
+	FILE *fp; char systemvar[20];
+	char *fcontent;
+    long size;
+    char websites[10][20]={"www.google.co.in","www.facebook.com","www.wikipedia.org","www.yahoo.co.in","www.flipkart.com","www.youtube.com","www.redbus.in","www.toi.in","www.reddit.com","www.amazon.in"};
+
+				printf(GAP);
+				printf("\n\t\t\t\t\t\t   Welcome to Web Utilities. You have the following choices:\n\n");
+				printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||||");
+				printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
+				printf("\n\t\t\t\t\t\t\t     ||   1. Speed links\t  ||");
+				printf("\n\t\t\t\t\t\t\t     ||   2. View IP Details\t  ||");
+				printf("\n\t\t\t\t\t\t\t     ||   3. Go Back\t\t  ||");
+				printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
+				printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||||");
+				printf("\n\n\n\n\t\t\t\t\t\t Enter your choice : ");
+
+				scanf("%d",&webchoice);
+				switch(webchoice)
+				{
+					case 1:
+						header();
+						printf(GAP);
+						printf("\n\t\t\t\tChoose one of the following speed links to get instant access to that website.\n\n");
+						printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||||");
+						printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
+						printf("\n\t\t\t\t\t\t\t     ||  1.Google \n\t\t\t\t\t\t\t     ||  2.Facebook \n\t\t\t\t\t\t\t     ||  3.Wikipedia \n\t\t\t\t\t\t\t     ||  4.Yahoo! \n\t\t\t\t\t\t\t     ||  5.Flipkart");
+						printf("\n\t\t\t\t\t\t\t     ||  6.YouTube \n\t\t\t\t\t\t\t     ||  7.Redbus \n\t\t\t\t\t\t\t     ||  8.The Times Of India ");
+						printf("\n\t\t\t\t\t\t\t     ||  9.Reddit \n\t\t\t\t\t\t\t     ||  10.Amazon \n\t\t\t\t\t\t\t     ||  0.Go Back");
+						printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
+						printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||||");
+						printf("\n\n\n\n\t\t\t\t\t\t\t\tEnter your choice : ");
+						scanf("%d",&webchoice1);
+						switch(webchoice1)
+							{
+							case 1: 
+								sprintf(systemvar,"firefox %s",websites[0]);
+								system(systemvar);
+								break;	
+							
+							case 2: 
+								sprintf(systemvar,"firefox %s",websites[1]);
+								system(systemvar);
+								break;
+							
+							case 3: 
+								sprintf(systemvar,"firefox %s",websites[2]);
+								system(systemvar);
+								break;
+							
+							case 4: 
+								sprintf(systemvar,"firefox %s",websites[3]);
+								system(systemvar);
+								break;
+							
+							case 5: 
+								sprintf(systemvar,"firefox %s",websites[4]);
+								system(systemvar);
+								break;
+							
+							case 6: 
+								sprintf(systemvar,"firefox %s",websites[5]);
+								system(systemvar);
+								break;
+							
+							case 7: 
+								sprintf(systemvar,"firefox %s",websites[6]);
+								system(systemvar);
+								break;
+							
+							case 8:
+								sprintf(systemvar,"firefox %s",websites[7]);
+								system(systemvar);
+								break;
+							
+							case 9: 
+								sprintf(systemvar,"firefox %s",websites[8]);
+								system(systemvar);
+								break;
+							
+							case 10: 
+								sprintf(systemvar,"firefox %s",websites[9]);
+								system(systemvar);
+								break;
+							
+							case 11:
+								goto gotoweb;
+							default: 
+								goto gotoweb;
+	                		}
+					break;
+
+	  				case 2:
+					{
+						showip(loggeduser);
+						goto gotoweb;
+					}
+				case 3: 
+					return 1;
+				
+				default: 
+					goto gotoweb;
+			
+				}
+}
+
+int shieldchat(char loggeduser[])
+{
+	char systemvar[100];
+	header();
+	printf(GAP);
+	sprintf(systemvar,"notify-send \"Hello %s \" \"Welcome  to  ShieldChat  Beta. \"",loggeduser);
+	system(systemvar);
+	printf("\n\n\t\t\t\t\t\t\t\t Shield Chat Beta v.0.1\n");
+	printf("\t\t\t\t\t\t\t\t ~~~~~~~~~~~~~~~~~~~~~\n\n\n");
+	printf("\n\t\t\t\t\t\t\t    ||||||||||||||||||||||||||||||||");
+	printf("\n\t\t\t\t\t\t\t    ||\t\t\t\t  ||");
+	printf("\n\t\t\t\t\t\t\t    ||   1. Host Connection\t  ||");
+	printf("\n\t\t\t\t\t\t\t    ||   2. Connect To Host\t  ||");
+	printf("\n\t\t\t\t\t\t\t    ||   3. View IP address\t  ||");
+	printf("\n\t\t\t\t\t\t\t    ||   4. ShieldChat Help\t  ||");
+	printf("\n\t\t\t\t\t\t\t    ||\t\t\t\t  ||");
+	printf("\n\t\t\t\t\t\t\t    ||||||||||||||||||||||||||||||||");
+	printf("\n\n\n\n\t\t\t\t\t\t\t\t Enter your choice : ");
+
 }
 
 void core(char loggeduser[])
@@ -196,116 +349,15 @@ void core(char loggeduser[])
 		switch(choice)
 		{
 			case 1:
-			gotoweb:
-			header();
-			printf(GAP);
-			printf("\n\t\t\t\t\t\t   Welcome to Web Utilities. You have the following choices:\n\n");
-			printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||||");
-			printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
-			printf("\n\t\t\t\t\t\t\t     ||   1. Speed links\t  ||");
-			printf("\n\t\t\t\t\t\t\t     ||   2. View IP Details\t  ||");
-			printf("\n\t\t\t\t\t\t\t     ||   3. Go Back\t\t  ||");
-			printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
-			printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||||");
-			printf("\n\n\n\n\t\t\t\t\t\t Enter your choice : ");
+				gotoweb:
+				webutilities(loggeduser);
+			goto goback;
 
-			scanf("%d",&webchoice);
-			switch(webchoice)
-			{
-				case 1:
-					header();
-					printf(GAP);
-					printf("\n\t\t\t\tChoose one of the following speed links to get instant access to that website.\n\n");
-					printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||||");
-					printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
-					printf("\n\t\t\t\t\t\t\t     ||  1.Google \n\t\t\t\t\t\t\t     ||  2.Facebook \n\t\t\t\t\t\t\t     ||  3.Wikipedia \n\t\t\t\t\t\t\t     ||  4.Yahoo! \n\t\t\t\t\t\t\t     ||  5.Flipkart");
-					printf("\n\t\t\t\t\t\t\t     ||  6.YouTube \n\t\t\t\t\t\t\t     ||  7.Redbus \n\t\t\t\t\t\t\t     ||  8.The Times Of India ");
-					printf("\n\t\t\t\t\t\t\t     ||  9.Reddit \n\t\t\t\t\t\t\t     ||  10.Amazon");
-					printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t  ||");
-					printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||||");
-					printf("\n\n\t\t\t\t\t\t\t\t\tEnter your choice : ");
-					scanf("%d",&webchoice1);
-					switch(webchoice1)
-						{
-						case 1: 
-							sprintf(systemvar,"firefox %s",websites[0]);
-							system(systemvar);
-							break;	
-						
-						case 2: 
-							sprintf(systemvar,"firefox %s",websites[1]);
-							system(systemvar);
-							break;
-						
-						case 3: 
-							sprintf(systemvar,"firefox %s",websites[2]);
-							system(systemvar);
-							break;
-						
-						case 4: 
-							sprintf(systemvar,"firefox %s",websites[3]);
-							system(systemvar);
-							break;
-						
-						case 5: 
-							sprintf(systemvar,"firefox %s",websites[4]);
-							system(systemvar);
-							break;
-						
-						case 6: 
-							sprintf(systemvar,"firefox %s",websites[5]);
-							system(systemvar);
-							break;
-						
-						case 7: 
-							sprintf(systemvar,"firefox %s",websites[6]);
-							system(systemvar);
-							break;
-						
-						case 8:
-							sprintf(systemvar,"firefox %s",websites[7]);
-							system(systemvar);
-							break;
-						
-						case 9: 
-							sprintf(systemvar,"firefox %s",websites[8]);
-							system(systemvar);
-							break;
-						
-						case 10: 
-							sprintf(systemvar,"firefox %s",websites[9]);
-							system(systemvar);
-							break;
-						
-						default: 
-							goto gotoweb;
-                		}
-				break;
+			case 2:
+				shieldchat(loggeduser);
 
-  				case 2:
-				{
-					header();
-					printf(GAP);
-					printf("\n");
-					sprintf(systemvar,"ifconfig > %s/IP.txt",loggeduser);
-					system(systemvar);
-					fp=fopen("IP.txt","r");
-					fseek(fp, 0L, SEEK_END);
-					size = ftell(fp);
-					fseek(fp, 0L, SEEK_SET);
-					fcontent=malloc(size);
-					fread(fcontent,1,size,fp);
-					printf("%s \n",fcontent);
-					system("sleep 5");
-					goto gotoweb;
-					break;
-				}
-			case 3: 
-				goto goback;
-			
-			default: 
-				goto goback;
-			}
+
+
 
 		}
 }
@@ -671,6 +723,7 @@ void makeuser()
 
 void main()
 {
-	authenticate();
+	//authenticate();
+	shieldchat("example");
 	
 }
