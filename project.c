@@ -1,4 +1,4 @@
-#include <stdio.h>
+	#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -143,9 +143,16 @@ void makeuser()
 {
 	
 	FILE *fp; char systemvar[20];
+	char *fcontent;
+        long size;
 
     char dname[20],dpass[20],filename[20],deleteuser[20];
     int dadmin;
+    int webchoice,webchoice1;	
+    char websites[10][20]={"www.google.co.in","www.facebook.com","www.wikipedia.org","www.yahoo.co.in","www.flipkart.com","www.youtube.com","www.redbus.in","www.toi.in","www.reddit.com","www.amazon.in"};
+
+
+//printf("\n\t\t\t\t1.Google \n\t\t\t\t2.Facebook \n\t\t\t\t3.Wikipedia \n\t\t\t\t4.Yahoo! \n\t\t\t\t5.Flipkart \n\t\t\t6.YouTube \n\t\t\t\t7.Redbus \n\t\t\t\t8.The Times Of India \n\t\t\t\t9.Reddit \n\t\t\t\t10.Amazon"};
 
 	char *confirm;
 	int i=0,choice;
@@ -170,6 +177,7 @@ void makeuser()
 		printf("\n\t\t\t\t\t\t\t     ||   2. View Users\t\t||");
 		printf("\n\t\t\t\t\t\t\t     ||   3. Modify A User\t||");
 		printf("\n\t\t\t\t\t\t\t     ||   4. Delete A User\t||");
+		printf("\n\t\t\t\t\t\t\t     ||   5. Web Utilities\t||");
 		printf("\n\t\t\t\t\t\t\t     ||\t\t\t\t||");
 		printf("\n\t\t\t\t\t\t\t     |||||||||||||||||||||||||||||");
 		printf("\n\n\n\n\t\t\t\t\t\t Enter your choice : ");
@@ -318,9 +326,108 @@ void makeuser()
                 goto goback;
                 break;
             }
+	
+	  case 5:
+	    {
+		header();
+		printf(GAP);
+		gotoweb:printf("\n\t\t\t\t Welcome to Web Utilities. You have the following choices:");
+		printf("\n\t\t\t\t1.Speed Link \n\t\t\t\t2.View Internet Protocol(IP) Details \n\t\t\t\t3.Go back");
+		scanf("%d",&webchoice);
+		switch(webchoice)
+		{
 
-                
-            }
+
+	
+			case 1:
+			{
+				header();
+				printf(GAP);
+				printf("\n\t\t\t\tChoose one of the following speed links to get instant access to that website.");
+				printf("\n\t\t\t\t1.Google \n\t\t\t\t2.Facebook \n\t\t\t\t3.Wikipedia \n\t\t\t\t4.Yahoo! \n\t\t\t\t5.Flipkart");
+				printf("\n\t\t\t\t6.YouTube \n\t\t\t\t7.Redbus \n\t\t\t\t8.The Times Of India ");
+				printf("\n\t\t\t\t9.Reddit \n\t\t\t\t10.Amazon");
+				printf("\n\t\tEnter your choice");
+				scanf("%d",&webchoice1);
+				switch(webchoice1)
+				{
+					case 1: {sprintf(systemvar,"firefox %s",websites[0]);
+						system(systemvar);
+						break;	}
+					
+					case 2: {sprintf(systemvar,"firefox %s",websites[1]);
+						system(systemvar);
+						break;}
+					
+					case 3: {sprintf(systemvar,"firefox %s",websites[2]);
+						system(systemvar);
+						break;}
+					
+					case 4: {sprintf(systemvar,"firefox %s",websites[3]);
+						system(systemvar);
+						break;}
+					
+					case 5: {sprintf(systemvar,"firefox %s",websites[4]);
+						system(systemvar);
+						break;}
+					
+					case 6: {sprintf(systemvar,"firefox %s",websites[5]);
+						system(systemvar);
+						break;}
+					
+					case 7: {sprintf(systemvar,"firefox %s",websites[6]);
+						system(systemvar);
+						break;}
+					
+					case 8: {sprintf(systemvar,"firefox %s",websites[7]);
+						system(systemvar);
+						break;}
+					
+					case 9: {sprintf(systemvar,"firefox %s",websites[8]);
+						system(systemvar);
+						break;}
+					
+					case 10: {sprintf(systemvar,"firefox %s",websites[9]);
+						system(systemvar);
+						break;}
+					default: goto gotoweb;
+                		    }
+				break;
+				}
+
+  			case 2:
+			{
+			header();
+			printf(GAP);
+			printf("\n");
+			sprintf(systemvar,"ifconfig > IP.txt");
+			system(systemvar);
+			fp=fopen("IP.txt","r");
+			fseek(fp, 0L, SEEK_END);
+			size = ftell(fp);
+			fseek(fp, 0L, SEEK_SET);
+			fcontent=malloc(size);
+			fread(fcontent,1,size,fp);
+			printf("%s \n",fcontent);
+			system("sleep 5");
+			goto gotoweb;
+			break;
+
+
+
+
+               		}
+			case 3: { goto goback;}
+			default: goto goback;
+		  
+
+
+
+		}
+
+            } 
+
+	
         default:
         goto goback;
         }
@@ -328,7 +435,7 @@ void makeuser()
 }               
                      
 
-
+}
 void main()
 {
 	//welcome();
