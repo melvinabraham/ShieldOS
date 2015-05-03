@@ -4,6 +4,7 @@
 #include <string.h>
 #include <termios.h>
 #include <fcntl.h>
+#include <time.h>
 
 #define GAP "\n\n\n\n\n\n\t\t\t"
 #define TAB "\t\t\t\t"
@@ -304,7 +305,9 @@ int webutilities(char loggeduser[])
 
 int shieldchat(char loggeduser[])
 {
-	char systemvar[100];
+	char systemvar[100],ip[15];
+	int choice,port;
+	goback:
 	header();
 	printf(GAP);
 	sprintf(systemvar,"notify-send \"Hello %s \" \"Welcome  to  ShieldChat  Beta. \"",loggeduser);
@@ -320,7 +323,77 @@ int shieldchat(char loggeduser[])
 	printf("\n\t\t\t\t\t\t\t    ||\t\t\t\t  ||");
 	printf("\n\t\t\t\t\t\t\t    ||||||||||||||||||||||||||||||||");
 	printf("\n\n\n\n\t\t\t\t\t\t\t\t Enter your choice : ");
+	scanf("%d",&choice);
 
+	switch(choice)
+	{
+		case 1:
+			header();
+			printf(GAP);
+			printf("\n\n\t\t\t\t\t\t\t\t Shield Chat Beta Host\n");
+			printf("\t\t\t\t\t\t\t\t ~~~~~~~~~~~~~~~~~~~~~\n\n\n");
+			printf(GAP"\n\n");
+			printf(TAB);
+			printf("\t\t\tEnter your secret 4 digit number : ");
+			scanf("%d",&port);
+			header();
+			printf(GAP"\n\n");
+			printf(TAB);
+			printf("\t\t    Establishing connectivity using your key %d ...",port);
+			sprintf(systemvar,"nc -l -p %d",port);
+			printf("\n\n\n\t\t\t\tYou are now listening for any incoming connection on your IP address");
+			printf("Y\n\n\n\t\t\t\tConnected!. Press Ctrl+C to exit anytime " );
+			system(systemvar);
+		goto goback;
+		
+		case 2:
+			header();
+			printf("\n\n\t\t\t\t\t\t\t\t Shield Chat Beta Client\n");
+			printf("\t\t\t\t\t\t\t\t ~~~~~~~~~~~~~~~~~~~~~\n\n\n");
+			printf(GAP"\n\n");
+			printf(TAB);
+			printf("Enter the host IP Address : ");
+			scanf("%s",ip);
+			printf("\n\n\n\n");
+			printf("\t\t\t\t\tEnter the secret 4 digit number of host : ");
+			scanf("%d",&port);
+			header();
+			printf(GAP"\n\n");
+			printf(TAB);
+			printf("\t\t    Establishing connectivity to the host %s with key %d ...",ip,port);
+			sprintf(systemvar,"nc %s %d",port);
+			printf("\n\n\n\t\t\t\tYou are now looking for the host with the secret key..");
+			printf("Y\n\n\n\t\t\t\tConnected!. Press Ctrl+C to exit anytime " );
+			system(systemvar);
+		goto goback;
+
+		case 3:
+
+			showip(loggeduser);
+		goto goback;
+
+		case 4 :
+
+			header();
+			printf(GAP"\n\n");
+			printf("\t\t\t\t\t\t _______         _______           _______ _________\n");
+			printf("\t\t\t\t\t\t   ____ \\       (  ____ \\|\\     /|(  ___  )\\__   __/\n");
+			printf("\t\t\t\t\t\t| (    \\/       | (    \\/| )   ( || (   ) |   ) (  \n"); 
+			printf("\t\t\t\t\t\t| (_____  _____ | |      | (___) || (___) |   | |   \n");
+			printf("\t\t\t\t\t\t(_____  )(_____)| |      |  ___  ||  ___  |   | |   \n");
+			printf("\t\t\t\t\t\t      ) |       | |      | (   ) || (   ) |   | |   \n");
+			printf("\t\t\t\t\t\t/\\____) |       | (____/\\| )   ( || )   ( |   | |   \n");
+			printf("\t\t\t\t\t\t\\_______)       (_______/|/     \\||/     \\|   )_(   \n");
+					                                                    
+			printf("\n\n\t\t\t\t\t   ShieldChat. An open source chat platform made for Shield OS.\n\n\n\n\n");
+			system("sleep 5");
+		goto goback;
+
+		default :
+		goto goback;
+
+
+	}
 }
 
 void core(char loggeduser[])
@@ -355,6 +428,7 @@ void core(char loggeduser[])
 
 			case 2:
 				shieldchat(loggeduser);
+			goto goback;
 
 
 
@@ -723,7 +797,6 @@ void makeuser()
 
 void main()
 {
-	//authenticate();
-	shieldchat("example");
+	authenticate();
 	
 }

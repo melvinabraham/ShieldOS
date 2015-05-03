@@ -36,8 +36,5 @@ This is a simple C application which tries to emulate a CLI operating system.
 
 **H Sabhariesh**    	   [[GitHub Link]](https://github.com/shariharasudan)
 
-**Nimal N**
-
-**Sachin Prakash**
 
 
